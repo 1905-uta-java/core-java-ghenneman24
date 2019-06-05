@@ -460,10 +460,11 @@ public class EvaluationServiceTest {
 		assertEquals("thequickbrownfoxjumpsoverthelazydog",
 				EvaluationService.AtbashCipher.decode("gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt"));
 	}
-
+}
+/*
 	/*******************************************************************
 	 * Question 13
-	 ******************************************************************/
+	 ******************************************************************
 	@Test
 	@Ignore
 	public void validIsbnNumber() {
@@ -497,7 +498,7 @@ public class EvaluationServiceTest {
 
 	/*******************************************************************
 	 * Question 14
-	 ******************************************************************/
+	 ******************************************************************
 	@Test
 	@Ignore
 	public void modernTime() {
@@ -535,7 +536,7 @@ public class EvaluationServiceTest {
 
 	/*******************************************************************
 	 * Question 15
-	 ******************************************************************/
+	 ******************************************************************
 	@Test
 	@Ignore
 	public void testSingleAddition1() {
@@ -567,3 +568,4 @@ public class EvaluationServiceTest {
 	}
 
 }
+*/

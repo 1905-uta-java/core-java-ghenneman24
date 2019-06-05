@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,14 @@ public class EvaluationService {
 	 */
 	public String reverse(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		int len = string.length();
+		char[] charArr = new char[len];
+		for(int i = 0; i <len; i++) {
+			charArr[i] = string.charAt((len-1-i));
+		}
+		
+		String str = new String(charArr);
+		return str;
 	}
 
 	/**
@@ -28,7 +36,30 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		int len = (int) phrase.length();
+		int count = 0;
+		char[] charArrVersion = phrase.toCharArray();
+		for(int i = 0; i < len; i++) {;
+			if(charArrVersion[i] == ' ' || charArrVersion[i] == '-') {
+				count++;
+			}
+			}
+		
+		char[] charACRNM = new char[count+1];
+		charACRNM[0] = charArrVersion[0];
+		charACRNM[0] = Character.toUpperCase(charACRNM[0]);
+		for(int j = 1; j<count+1; j++) {
+			for(int i = 0; i<len; i++) {
+				if(charArrVersion[i]==' ' || charArrVersion[i] == '-') {
+					charACRNM[j] = charArrVersion[i+1];
+					charArrVersion[i]='N';
+					charACRNM[j] = Character.toUpperCase(charACRNM[j]);
+					break;
+				}
+			}
+		}
+		String str = new String(charACRNM);
+		return str;
 	}
 
 	/**
@@ -80,21 +111,34 @@ public class EvaluationService {
 			this.sideThree = sideThree;
 		}
 
+		Double s1 = this.sideOne;
+		Double s2 = this.sideTwo;
+		Double s3 = this.sideThree;
+		
+		
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if((s1==s2) && (s2==s3)) {
+				return true;
+			}else {
+				return false;
+			}
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if((s1==s2)||s2==s3|| s1==s3 ||((s1==s2) && (s2==s3))){
+				return true;
+			}else {
+				return false;
+			}
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if((s1!=s2)||s2!=s3|| s1!=s3 ||((s1!=s2) && (s2!=s3))) {
+				return false;
+			}else {
+				return true;
+			}
 		}
-
 	}
 
 	/**
@@ -114,7 +158,57 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		char[] charArr = string.toCharArray();
+		int count = 0;
+		int len = string.length();
+		
+		for(int i = 0; i<len; i++) {
+			
+			switch (string.charAt(i)) {
+			
+			case 'A':
+			case 'E':
+			case 'I':
+			case 'O':
+			case 'U':
+			case 'L':
+			case 'N':
+			case 'R':
+			case 'S':
+			case 'T':
+				count+=1;
+				break;
+			case 'D':
+			case 'G':
+				count+=2;
+				break;
+			case 'B':
+			case 'C':
+			case 'M':
+			case 'P':
+				count+=3;
+				break;
+			case 'F':
+			case 'H':
+			case 'V':
+			case 'W':
+			case 'Y':
+				count+=5;
+				break;
+			case 'J':
+			case 'X':
+				count+=8;
+				break;
+			case 'Q':
+			case 'Z':
+				count+=10;
+				break;
+			default:
+				break;
+			}
+		}	
+		return count;
 	}
 
 	/**
@@ -149,8 +243,42 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		StringBuilder str1 = new StringBuilder(string);
+		StringBuilder str2 = new StringBuilder();
+		char[] str3 = {'0','1','2','3','4','5','6','7','8','9'};
+		
+		
+		//System.out.println(str1);
+		
+		int len = str1.length();
+		
+		//System.out.println(len);
+		
+		for(int i = 0; i<len; i++) {
+			//System.out.println(str1.charAt(i));
+			for(int j = 0; j < 10; j++) {
+				//System.out.println(j);
+				if(str1.charAt(i) == str3[j]) {
+					str2.append(j); 
+					//System.out.println(j);
+				}
+			}
+		}
+		
+		int len2 = str2.length();
+		
+		if(len2 >10) {
+			throw new IllegalArgumentException();
+		}
+		
+		if(len2<9) {
+			throw new IllegalArgumentException();
+		}
+		
+
+		String str4 = str2.toString();
+		return str4;
 	}
 
 	/**
@@ -163,8 +291,28 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		//String arrOfStr3 = string.replaceAll(",|\\n", " ");
+		String[] arrOfStr = string.split(" |,|\n");
+		String[] arrOfStr1 = arrOfStr;
+		
+		int len = arrOfStr.length;
+		int count = 0;
+		
+		Map<String, Integer> hm = new HashMap<String, Integer>();
+		
+		for(int i = 0; i<len; i++) {
+			for(int j = 0; j<len; j++) {
+				if(arrOfStr[i].equals(arrOfStr1[j])) {
+						count++;
+						//hm.put(arrOfStr[i], count);
+				}
+			}
+			hm.put(arrOfStr[i], count);
+			count = 0;
+		}
+		//System.out.println(hm);
+		return hm;
 	}
 
 	/**
@@ -202,18 +350,19 @@ public class EvaluationService {
 	 * binary search is a dichotomic divide and conquer search algorithm.
 	 * 
 	 */
-	static class BinarySearch<T> {
+	static class BinarySearch<T>{
 		private List<T> sortedList;
 
 		public int indexOf(T t) {
-			// TODO Write an implementation for this method declaration
+			
 			return 0;
 		}
 
 		public BinarySearch(List<T> sortedList) {
 			super();
-			this.sortedList = sortedList;
-		}
+			this.sortedList = sortedList; 
+				
+			}
 
 		public List<T> getSortedList() {
 			return sortedList;
@@ -224,7 +373,6 @@ public class EvaluationService {
 		}
 
 	}
-
 
 	/**
 	 * 8. An Armstrong number is a number that is the sum of its own digits each
@@ -241,10 +389,40 @@ public class EvaluationService {
 	 * @param input
 	 * @return
 	 */
+	
+	
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		
+		int i =0; 
+		int count = 0; 
+		int sum = 0;
+		int falseInput = input;
+		int falseInputTwo = input; 
+		
+		
+		while(falseInput !=0) {
+			i++;
+			falseInput = falseInput/10;
+		}
+
+		while(falseInputTwo != 0) {
+			count = falseInputTwo%10;
+			falseInputTwo = falseInputTwo/10;
+			sum += Math.pow(count, i);
+			
+		}
+
+		boolean result; 
+		
+		if(sum == input) {
+			result = true; 
+		}else {
+			result =  false;
+		}
+
+		return result;
 	}
+	
 
 	/**
 	 * 9. Determine if a sentence is a pangram. A pangram (Greek: παν γράμμα, pan
@@ -259,9 +437,40 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
+	
 	public boolean isPangram(String string) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		
+		string.toLowerCase();
+		StringBuilder str = new StringBuilder(string);
+		StringBuilder blank = new StringBuilder();
+
+		char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m',
+				'n','o','p','q','r','s','t','u','v','w','x','y','z'};
+		int sum =0;
+		int len = str.length();
+		int alphaLen = alphabet.length;
+		
+		for(int i = 0; i<len; i++) {
+			char[] alpha = alphabet;
+			for(int j = 0; j< 26; j++) {
+				if(str.charAt(i) == alpha[j]) {
+					blank.append(alpha[j]); 
+					alpha[j]= '\0';
+					sum++;
+				}
+			}
+		}
+		
+		boolean result;
+		
+		if(sum <26) {
+			result = false;
+		}else {
+			result = true;
+		}
+
+		return result;
 	}
 
 	
@@ -299,11 +508,49 @@ public class EvaluationService {
 			this.key = key;
 		}
 
-		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
-		}
+		char[] ALPHABET = {'A','B','C','D','E','F','G','H','I','J','K','L','M',
+				'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+		char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m',
+				'n','o','p','q','r','s','t','u','v','w','x','y','z'};
 
+		public String rotate(String string) {
+			
+			StringBuilder str = new StringBuilder(string);
+			StringBuilder blank = new StringBuilder();
+			
+			int len = string.length();
+			int k = 0;
+			int count = 0; 
+			
+			this.key = key; 
+			
+			for(int i = 0; i< len; i++) {
+				if(count == 0) {
+					for(int j= 0; j< 26; j++) {
+						if(str.charAt(i) == alphabet[j]) {
+							k = (j+key)%26;
+							blank.append(alphabet[k]);
+							count++;
+
+						}
+						if(str.charAt(i)==ALPHABET[j]) {
+							k = (j+key)%26;
+							blank.append(ALPHABET[k]);
+							count++;
+						}
+
+					}
+					if(count == 0) {
+						blank.append(str.charAt(i));
+					}
+					count = 0;
+				}else {
+					count = 0;
+				}
+			}
+			String str1 = blank.toString(); 
+			return str1;
+		}
 	}
 	
 
@@ -332,7 +579,6 @@ public class EvaluationService {
 	 *
 	 */
 	static class AtbashCipher {
-
 		/**
 		 * Question 11
 		 * 
@@ -340,8 +586,43 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			
+			StringBuilder alpha = new StringBuilder("abcdefghijklmnopqrstuvwxyz");
+			StringBuilder revAlpha = new StringBuilder("abcdefghijklmnopqrstuvwxyz");
+			StringBuilder numeric = new StringBuilder("0123456789");
+			
+			StringBuilder str = new StringBuilder(string);
+			
+			revAlpha.reverse();
+			
+			StringBuilder empty = new StringBuilder();
+			String strLower = str.toString();
+			strLower = strLower.toLowerCase();
+			int len = string.length(); 
+			
+			for(int i = 0; i< len; i++ ) { 
+				for( int j = 0; j< 26; j++) {
+					if(strLower.charAt(i) == alpha.charAt(j)) {
+						empty.append(revAlpha.charAt(j));
+					}
+				}
+				for(int l = 0; l<10; l++) {
+					if(strLower.charAt(i)==numeric.charAt(l)) {
+						empty.append(numeric.charAt(l));
+					}
+				}
+			}
+
+			if(len>5) {
+			for(int i =5 ; i<len; i+=6) {
+					empty.insert(i, " ");
+			}
+			}
+			
+			
+			String str1 = empty.toString();
+			String str2 = str1.trim();
+			return str2;
 		}
 
 		/**
@@ -351,10 +632,38 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			
+			String str = string.replaceAll(" ", "");
+
+			StringBuilder alphas = new StringBuilder("abcdefghijklmnopqrstuvwxyz");
+			StringBuilder revAlphas = new StringBuilder("abcdefghijklmnopqrstuvwxyz");
+			StringBuilder numerics = new StringBuilder("0123456789");
+			StringBuilder str2 = new StringBuilder(str);
+			
+			revAlphas.reverse();
+			int lens = (string.replaceAll(" ","")).length(); 
+			
+			StringBuilder blank = new StringBuilder();
+			
+			for(int i = 0; i< lens; i++ ) { 
+				for( int j = 0; j< 26; j++) {
+					if(str2.charAt(i) == alphas.charAt(j)) {
+						blank.append(revAlphas.charAt(j));
+					}
+				}
+				for(int l = 0; l<10; l++) {
+					if(str2.charAt(i)==numerics.charAt(l)) {
+
+						blank.append(numerics.charAt(l));
+					}
+				}
+			}
+			
+			String str3 = blank.toString();
+			return str3;
 		}
 	}
+}
 
 	/**
 	 * 13. (Optional) The ISBN-10 verification process is used to validate book identification
@@ -377,7 +686,7 @@ public class EvaluationService {
 	 * 
 	 * @param string
 	 * @return
-	 */
+	 *
 	public boolean isValidIsbn(String string) {
 		// TODO Write an implementation for this method declaration
 		return false;
@@ -391,7 +700,7 @@ public class EvaluationService {
 	 * 
 	 * @param given
 	 * @return
-	 */
+	 *
 	public Temporal getGigasecondDate(Temporal given) {
 		// TODO Write an implementation for this method declaration
 		return null;
@@ -424,10 +733,11 @@ public class EvaluationService {
 	 * 
 	 * @param string
 	 * @return
-	 */
+	 *
 	public int solveWordProblem(String string) {
 		// TODO Write an implementation for this method declaration
 		return 0;
 	}
 
 }
+*/
